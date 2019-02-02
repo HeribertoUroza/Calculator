@@ -35,3 +35,22 @@ button:active {
   background-color: #EE9B3E;
   color: #fff;
 }
+
+.inputview {
+    font-size: 5em;
+    color: #fff;
+    text-align: right;
+    background-color: #333
+}
+
+.calculator {
+    width: 50%;
+    background-color: #333
+}
+
+.holder {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center
+}

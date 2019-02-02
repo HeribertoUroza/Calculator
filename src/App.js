@@ -25,9 +25,9 @@ class App extends Component {
         <div className='holder'>
           <div classNmae='calculator'>
             <div className='row'>
-              <div className='col-12 inputview'></div>
+              <div className='col-12 inputview'>0</div>
               <button className='button col-3'>AC</button>
-              
+
             
             </div>
 
