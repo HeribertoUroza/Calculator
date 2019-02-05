@@ -10,8 +10,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      displayValue: 0,
-      previousValue: 7,
+      displayValue: '0',
+      previousValue: null,
       operation: null,
       waitingForNewValue: false
   }
@@ -43,14 +43,17 @@ class App extends Component {
     // }
 
     buttonClick = e => {
-      console.log(e.target.innerHTML)
-     const num = e.target.innerHTML
-      //console.log(typeof num)
-      if (num === "1" || num === "2" || num === "3" || num === "4" || num === "5" || num === "6" || num === "7" || num === "8" || num === "9"){
-        parseInt(num)
+      console.log(e.currentTarget.value)
+     const num = parseFloat(this.state.displayValue) 
+     console.log(num)
+    // const value = this.state.displayValue 
+      console.log(typeof num)
+      if (num === '0' || num === '1' || num === '2' || num === '3' || num === '4' || num === '5' || num === '6' || num === '7' || num === '8' || num === '9'){
+        console.log(parseFloat(num))
         console.log(typeof num)
       }
-     
+     console.log(num)
+     console.log(typeof num)
       this.setState ({
         displayValue: num,
       })
@@ -65,6 +68,7 @@ class App extends Component {
         <div className='holder'>
           <div className='calculator'>
             <div className='row'>
+
               <div className='col-12 inputview'>{this.state.displayValue}</div>
 
               <button className='button col-3' onClick={this.buttonClick}>AC</button>
