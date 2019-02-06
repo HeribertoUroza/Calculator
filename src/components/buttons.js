@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 
-handleDisplay = (e) => {
-    let newDisplay = e.target.value
-    this.setState({ displayValue: newDisplay })
+handleDisplay = (props) => {
+    // let newDisplay = e.target.value
+    // this.setState({ displayValue: newDisplay })
 
     return (
         <>
-            <div className='col-12 inputview'>{this.state.displayValue}</div>
+            <div className='col-12 inputview'>{props.displayValue}</div>
         </>
     )
 }
 
-export {
-    handleDisplay
-}
+export default handleDisplay;
