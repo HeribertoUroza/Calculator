@@ -113,7 +113,7 @@ class App extends Component {
 
     }
     
-    if(operationClick === '%'){
+    if (operationClick === '%') {
       const displayValue = this.state.displayValue;
       let nDisplay = displayValue / 100;
       console.log(nDisplay)
