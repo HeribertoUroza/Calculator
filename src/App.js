@@ -86,25 +86,43 @@ class App extends Component {
     }
     else this.setState({
       displayValue: nDisplay,
+
     })
 
   }
 
   operationClick = e => {
-    console.log(e)
-    console.log(e.target)
-    console.log(e.target.value)
     const operationClick = e.target.value;
-
-    console.log('-------------')
-    console.log(e.currentTarget)
-    console.log(e.currentTarget.value)
 
     if (operationClick === 'AC') {
       this.setState({
         displayValue: '0'
       })
     }
+
+    
+    if (operationClick === '±'){
+      const displayValue = this.state.displayValue;
+      let nDisplay = displayValue * -1; 
+      console.log(nDisplay)
+
+      this.setState({
+        displayValue: nDisplay,
+      })
+
+
+    }
+    
+    if(operationClick === '%'){
+      const displayValue = this.state.displayValue;
+      let nDisplay = displayValue / 100;
+      console.log(nDisplay)
+
+      this.setState({
+        displayValue: nDisplay,
+      })
+    }
+
   }
 
 
