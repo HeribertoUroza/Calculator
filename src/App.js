@@ -67,8 +67,9 @@ class App extends Component {
     let buttonValue = e.target.value;
     let nDisplay = displayValue + buttonValue
 
-    // console.log(displayValue)
-    // console.log(buttonValue)
+    console.log(displayValue)
+    console.log(buttonValue)
+    
     //console.log(typeof nDisplay.charAt(0))
     // nDisplay.substring(1)
     // this.setState({
@@ -81,13 +82,19 @@ class App extends Component {
       // console.log('this display ',displayValue)
       // console.log('nDisplay', nDisplay)
       this.setState({
-        displayValue: nDisplay
+        displayValue: nDisplay,
+        previousValue: nDisplay
       })
     }
     else this.setState({
       displayValue: nDisplay,
+      previousValue: nDisplay
 
+    },()=> {
+      console.log("PREVAL",this.state.previousValue)
     })
+   
+    //setTimeout(function () { console.log('preVAL', this.state.previousValue); }, 3000);
 
   }
 
@@ -108,9 +115,9 @@ class App extends Component {
 
       this.setState({
         displayValue: nDisplay,
+        operation: '±',
+        waitingForNewValue: true
       })
-
-
     }
     
     if (operationClick === '%') {
@@ -120,8 +127,23 @@ class App extends Component {
 
       this.setState({
         displayValue: nDisplay,
+        operation: '±',
+        waitingForNewValue: true
       })
     }
+
+    if (operationClick === '÷') {
+      let displayVal = e.target.value;
+      let previousValue = this.state.previousValue;
+      let answer = previousValue / displayVal;
+
+      this.setState({
+        displayValue: answer,
+      })
+
+    }
+
+    
 
   }
 
