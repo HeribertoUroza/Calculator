@@ -18,96 +18,59 @@ class App extends Component {
       waitingForNewValue: false
     }
   }
-
-  // additionFunction = (num1, num2) => {
-  //   //console.log(num1, num2)
-  //   let num = this.state.displayValue;
-  //   let nums = this.state.previousValue;
-  //   console.log(num, nums)
-  //   console.log(addFunc(num, nums))
-  //   const newNum = addFunc(num,nums)
-
-  //   this.setState({
-  //     displayValue: newNum,
-  //     previousValue: nums,
-  //     operation: "+",
-  //     waitingForNewValue: false
-  //   })
-
-  // }
-
-  // handleAdd = e => {
-  //   console.log("clicked")
-  //   console.log(e)
-  //   const sum = this.state.displayValue + this.state.previousValue
-  //   this.state.displayValue = sum;
-
-  // }
-
-  // buttonClick = e => {
-  //   console.log(e.target)
-  //   console.log(e.currentTarget.value)
-  //   console.log(e.target.value)
-  //  const num = parseFloat(this.state.displayValue) 
-  //  console.log(num)
-  //  const value = this.state.displayValue 
-  //   console.log(typeof num)
-  //   // if (num === '0' || num === '1' || num === '2' || num === '3' || num === '4' || num === '5' || num === '6' || num === '7' || num === '8' || num === '9'){
-  //   //   console.log(parseFloat(num))
-  //   //   console.log(typeof num)
-  //   // }
-  //  console.log(num)
-  //  console.log(typeof num)
-  //   this.setState = value
-
-
-  // }
   numberClick = (e) => {
     let displayValue = this.state.displayValue
     let buttonValue = e.target.value;
     let nDisplay = displayValue + buttonValue
+    let operation = this.state.operation
 
     console.log(displayValue)
     console.log(buttonValue)
-    
-    //console.log(typeof nDisplay.charAt(0))
-    // nDisplay.substring(1)
-    // this.setState({
-    //   displayValue: nDisplay
-    // })
 
-    if (nDisplay.charAt(0) === '0') {
-      nDisplay = nDisplay.substring(1);
-      // console.log('hehehe')
-      // console.log('this display ',displayValue)
-      // console.log('nDisplay', nDisplay)
-      this.setState({
+    if(operation === null){
+      if (nDisplay.charAt(0) === '0') {
+        nDisplay = nDisplay.substring(1);
+        console.log('did it get here')
+        this.setState({
+          displayValue: nDisplay,
+        })
+      }
+      else this.setState({
         displayValue: nDisplay,
-        previousValue: nDisplay
+
+      })
+
+
+    }
+    else if(operation !== null){
+      console.log('not null',this.state)
+      let previousValue = this.state.displayValue;
+      let newDisplay = e.target.value
+      this.setState({
+        displayValue: newDisplay,
+        previousValue: previousValue,
+      }, () => {
+        console.log('NOT NULL 2', this.state)
       })
     }
-    else this.setState({
-      displayValue: nDisplay,
-      previousValue: nDisplay
-
-    },()=> {
-      console.log("PREVAL",this.state.previousValue)
-    })
-   
-    //setTimeout(function () { console.log('preVAL', this.state.previousValue); }, 3000);
-
   }
 
   operationClick = e => {
-    const operationClick = e.target.value;
+    console.log(this.state)
 
+    let operationClick = e.target.value;
+
+    
+    //AC
     if (operationClick === 'AC') {
       this.setState({
-        displayValue: '0'
+        displayValue: '0',
+        previousValue: null,
+        operation: null
       })
     }
 
-    
+    // ±
     if (operationClick === '±'){
       const displayValue = this.state.displayValue;
       let nDisplay = displayValue * -1; 
@@ -116,10 +79,10 @@ class App extends Component {
       this.setState({
         displayValue: nDisplay,
         operation: '±',
-        waitingForNewValue: true
       })
     }
-    
+
+    // %
     if (operationClick === '%') {
       const displayValue = this.state.displayValue;
       let nDisplay = displayValue / 100;
@@ -127,25 +90,71 @@ class App extends Component {
 
       this.setState({
         displayValue: nDisplay,
-        operation: '±',
-        waitingForNewValue: true
+        operation: '%',
       })
     }
 
-    if (operationClick === '÷') {
-      let displayVal = e.target.value;
-      let previousValue = this.state.previousValue;
-      let answer = previousValue / displayVal;
+    if (operationClick === '.') {
+      const displayValue = this.state.displayValue;
+      let nDisplay = displayValue.concat('.')
+      console.log(nDisplay)
 
       this.setState({
-        displayValue: answer,
+        displayValue: nDisplay,
+        operation: '.',
       })
-
     }
 
-    
+    if (operationClick === '+' || operationClick === '-' || operationClick === '*' || operationClick === '/'){
+      this.setState({
+        operation: operationClick
+      }, () => {
+        console.log('OPERATION STATE', this.state)
+      })
+    }
 
+    if(operationClick === '='){
+      let operation = this.state.operation
+      let previousValue = parseFloat(this.state.previousValue)
+      let displayValue = parseFloat(this.state.displayValue)
+      console.log('INSIDE =',this.state)
+      if(operation === '+'){
+        let sum = previousValue + displayValue
+        console.log('INSIDE +', this.state)
+        this.setState({
+          displayValue: sum
+        })
+        
+      }
+      if (operation === '-') {
+        let subtraction = previousValue - displayValue
+        console.log('INSIDE -', this.state)
+        this.setState({
+          displayValue: subtraction
+        })
+
+      }
+      if (operation === '*') {
+        let multi = previousValue * displayValue
+        console.log('INSIDE *', this.state)
+        this.setState({
+          displayValue: multi
+        })
+
+      }
+      if (operation === '/') {
+        let divi = previousValue / displayValue
+        console.log('INSIDE /', this.state)
+        this.setState({
+          displayValue: divi
+        })
+
+      }
+    }
+    
+    
   }
+
 
 
 
@@ -161,12 +170,12 @@ class App extends Component {
               <button className='button col-3' onClick={this.operationClick} value='AC'>AC</button>
               <button className='button col-3' onClick={this.operationClick} value='%'>%</button>
               <button className='button col-3' onClick={this.operationClick} value='±'>±</button>
-              <button className='button col-3 orange' onClick={this.operationClick} value='÷'>÷</button>
+              <button className='button col-3 orange' onClick={this.operationClick} value='/'>÷</button>
 
               <button className='button col-3' onClick={this.numberClick} value='7'>7</button>
               <button className='button col-3' onClick={this.numberClick} value='8'>8</button>
               <button className='button col-3' onClick={this.numberClick} value='9'>9</button>
-              <button className='button col-3 orange' onClick={this.operationClick} value='x'>x</button>
+              <button className='button col-3 orange' onClick={this.operationClick} value='*'>x</button>
 
               <button className='button col-3' onClick={this.numberClick} value='4'>4</button>
               <button className='button col-3' onClick={this.numberClick} value='5'>5</button>
